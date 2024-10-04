@@ -1,0 +1,303 @@
+﻿@model Rentandrun.Models.User
+
+@using System.Web.Mvc.Html;
+
+@{
+    ViewBag.Title = "User Profile";
+    Layout = null;
+    var records = ViewBag.all_booking;
+    var id = ViewBag.u_id;
+    var cars = ViewBag.all_car;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title-Rent & Run</title>
+
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/fontawesome-all.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <style>
+        #customers {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+            #customers td, #customers th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            #customers tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            #customers tr:hover {
+                background-color: #ddd;
+            }
+
+            #customers th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #04AA6D;
+                color: white;
+            }
+    </style>
+</head>
+<body>
+    @if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+        </script>
+
+    }
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12" style="background-color:bisque; padding: 6px; margin-bottom: 4px">
+                <center>
+                    <h2 style="font-family:Verdana; font-weight:bolder; ">Rent & Run</h2>
+                </center>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        @using (Html.BeginForm("UserProfile", "AfterLogin", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            <div class="row">
+                                <div class="col">
+                                    <center>
+                                        <img width="120px" src="~/images/user.png" />
+                                    </center>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <center>
+                                        <h4>Your Profile</h4>
+                                        <span>Account Status - </span>
+                                        <span class="badge bg-primary">@Html.DisplayFor(model => model.UserStatus)</span>
+                                    </center>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <hr>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Full Name</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" value="@Html.DisplayFor(model => model.UserName)" name="UserName" id="recipient-rname" readonly>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Date of Birth</label>
+                                    <div class="form-group">
+                                        <input type="date" class="form-control" value="@Html.DisplayFor(model => model.UserDateOfBirth)" name="UserDateOfBirth" id="recipient-rname">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Contact Number</label>
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" placeholder="Contact No" value="@Html.DisplayFor(model => model.UserContact_number)" name="UserContact_number" id="recipient-rname">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Email Address</label>
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" value="@Html.DisplayFor(model => model.UserEmail)" name="UserEmail" id="recipient-rname" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label>Full Address</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="User Full Address" value="@Html.DisplayFor(model => model.UserAddress)" name="UserAddress" id="recipient-rname">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>National ID card</label>
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" placeholder="NID card" value="@Html.DisplayFor(model => model.UserNID)" name="UserNID" id="recipient-rname">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Driving License</label>
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" placeholder="Driving License card" value="@Html.DisplayFor(model => model.UserDrivingID)" name="UserDrivingID" id="recipient-rname">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <input type="submit" class="btn btn-success btn-block btn-lg" value="Update Profile">
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        @using (Html.BeginForm("ChangePassword", "AfterLogin", FormMethod.Post))
+                        {
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label>Current Password</label>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" placeholder="Current Password" name="UserPassword" id="recipient-rname">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>New Password</label>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" placeholder="New Password" name="UserNewPassword1" id="password1" onkeyup='check();'>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Confirm New Password</label>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" placeholder="Confirm Password" name="UserNewPassword2" id="password2" onkeyup='check();'>
+                                    </div>
+                                </div>
+                            </div>
+                            <span id='message'></span>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <input type="submit" class="btn btn-warning btn-block btn-lg" value="Change Password">
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <a href="@Url.Action("Index", "AfterLogin")" class="text-dark"><< Back to Home</a>
+                <br><br>
+
+            </div>
+            <div class="col-md-7">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <center>
+                                    <img src="~/images/car2.png" width="220">
+                                </center>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <center>
+                                    <h4>Your Bookings</h4>
+                                    <span class="badge rounded-pill bg-warning text-dark">Car booking Details</span>
+                                </center>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <!-- Buttons to choose list or grid view -->
+                                
+                                @foreach (var item in records)
+                                {
+                                    if (@item.UserID == id)
+                                    {
+                                        <div class="row" style="background-color:#ddd; height: 160px; padding: 5px 5px 5px 5px;">
+                                            <div class="col-md-6">
+                                                <h4>Booking ID : @item.BookingID &emsp; &emsp; <span class="badge rounded-pill bg-danger text-dark">@item.BookingStatus</span></h4>
+                                                <h6>
+                                                    From : @item.Start_date  &emsp;  To : @item.End_date<br>
+                                                    Source : @item.Start_place &emsp;  Destination : @item.End_place<br>
+                                                    Total Amount : @item.TotalAmount taka<br>
+                                                </h6>
+                                                <div class="form-group">
+                                                    @using (Html.BeginForm("AddReview", "AfterLogin", FormMethod.Post))
+                                                    {
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" placeholder="Add Review" name="Comment" id="recipient-rname">
+                                                            <input type="submit" class="btn btn-success" style="margin-left:6px" value="Submit">
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                            
+                                                @foreach (var i in cars)
+                                                {
+                                                    if (@i.CarID == @item.CarID)
+                                                    {
+                                                        <div class="col-md-6" style="float:right; ">
+                                                            <img src="@Url.Content(@i.CarImage)" class="rounded" style="width:300PX; height:150PX; margin-left: 80px" />
+                                                        </div>
+                                                    }
+                                                 }
+
+                                        
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <hr>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+
+                            </div>
+                        </div>
+                        <!--history-->
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12" style="background-color:black; padding: 6px; height:25px; margin-bottom: 4px">
+                
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        var check = function () {
+            if (document.getElementById('password1').value ==
+                document.getElementById('password2').value) {
+                document.getElementById('message').style.color = 'green';
+                document.getElementById('message').innerHTML = '';
+            } else {
+                document.getElementById('message').style.color = 'red';
+                document.getElementById('message').innerHTML = '*New Password and Confirm password is not matching';
+            }
+        }
+    </script>
+</body>
+</html>

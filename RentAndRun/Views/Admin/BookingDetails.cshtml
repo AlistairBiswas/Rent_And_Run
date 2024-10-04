@@ -1,0 +1,175 @@
+﻿@model Rentandrun.Models.Booking
+@{
+    ViewBag.Title = "Booking";
+    Layout = null;
+    var records = ViewBag.all_booking;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title-Rent & Run</title>
+
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/fontawesome-all.css" rel="stylesheet" />
+    <style>
+        .btn-dark {
+            margin-left: 10px;
+        }
+    </style>
+    <style>
+        #customers {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+            #customers td, #customers th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            #customers tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            #customers tr:hover {
+                background-color: #ddd;
+            }
+
+            #customers th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #04AA6D;
+                color: white;
+            }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12" style="background-color:bisque; padding: 6px; margin-bottom: 4px">
+                <center>
+                    <h2 style="font-family:Verdana; font-weight:bolder; ">Rent & Run</h2>
+                </center>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <center>
+                                    <h4>Booking Details</h4>
+                                </center>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <center>
+                                    <img width="150px" src="~/images/schedule.png" />
+                                </center>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Booking ID</label>
+                                @using (Html.BeginForm("BookingDetails", "Admin", FormMethod.Post))
+                                {
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" placeholder="ID" name="BookingID" value="@Html.DisplayFor(model => model.BookingID)" id="recipient-rname" required="">
+                                            <input type="submit" class="btn btn-dark" value="Go">
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                <label>Transection ID</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="" value="@Html.DisplayFor(model => model.TransectionID)" name="TransectionID" id="recipient-rname" required="" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        @using (Html.BeginForm("VerifyBooking", "Admin", FormMethod.Post))
+                        {
+                            <div class="row">
+                                <div class="col-6" style="margin-left: 150px; margin-top: 25px">
+                                    <div class="form-group">
+                                        <input type="submit" class="btn btn-success btn-block btn-lg" value="Verify">
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <a href="@Url.Action("Index", "Admin")" class="text-dark"><< Back to Home</a>
+                <br><br>
+            </div>
+            <div class="col-md-7">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <center>
+                                    <h2>Booking List</h2>
+                                </center>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <hr>
+                            </div>
+                        </div>
+                        <table id="customers">
+                            <tr>
+                                <th>ID</th>
+                                <th>UserID</th>
+                                <th>CarID</th>
+                                <th>StartDate</th>
+                                <th>EndDate</th>
+                                <th>Amount</th>
+                                <th>TransectionID</th>
+                                <th>Status</th>
+                            </tr>
+                            @foreach (var item in records)
+                            {
+                                <tr>
+                                    <td>@item.BookingID</td>
+                                    <td>@item.UserID</td>
+                                    <td>@item.CarID</td>
+                                    <td>@item.Start_date</td>
+                                    <td>@item.End_date</td>
+                                    <td>@item.TotalAmount</td>
+                                    <td>@item.TransectionID</td>
+                                    <td>@item.BookingStatus</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12" style="background-color:black; padding: 6px; height:25px; margin-bottom: 4px">
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

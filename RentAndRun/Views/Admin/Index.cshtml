@@ -1,0 +1,273 @@
+﻿@model Rentandrun.Models.tbl_admin
+@{
+    ViewBag.Title = "Admin Index";
+    Layout = null;
+    var records = ViewBag.all_book;
+    var allcars = ViewBag.all_cars;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title-Rent & Run</title>
+
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/css/fontawesome-all.css" rel="stylesheet" />
+
+    <style>
+        .nav-item {
+            margin-right: 60px;
+            border-radius: 5px;
+        }
+
+        .nav-link:hover {
+            color: black;
+            text-shadow: 1px 1px 2px #000000;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .nav-item a {
+            text-decoration: none;
+            color: antiquewhite;
+        }
+
+        #box {
+            border: 1px solid black;
+            height: 100%;
+        }
+
+        #main-div {
+            height: 900px;
+            background-image: url('../../Content/img/building6.jpg');
+            background-size: 100% 900px;
+        }
+
+        .insidebox {
+            border: 1px solid black;
+            margin: 10% auto 10% auto;
+            max-width: 500px;
+            min-width: 200px;
+            padding-left: 60px;
+            padding-right: 60px;
+            border-radius: 10px;
+            background-color: whitesmoke;
+        }
+
+        div h1 {
+            text-align: center;
+        }
+
+        p#para {
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+
+
+
+    <script src="js/bootstrap.min.js"></script>
+    <script src="http://code.jquery.com/jquery.js"></script>
+</head>
+<body>
+
+    <!--/banner-->
+    <div class="top-bar_sub_w3layouts container-fluid">
+        <div class="row">
+
+            <div class="col-md-4 col-sm-6 log-icons mt-2">
+                <h4 style="text-align: left; margin-left: 20px ">Admin Home </h4>
+            </div>
+
+            <div class="col-md-4 col-sm-6 logo">
+                <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                    <i class="fas fa-taxi"></i> Rent & Run
+                </a>
+            </div>
+
+
+            <div class="col-md-4 top-forms mt-md-3 mt-2 mb-md-0 mb-3" style="">
+
+                <span>
+                    <a href="@Url.Action("Chat", "Admin")" style="margin-left: 90px; text-decoration:none">Chat</a>
+                </span>
+                <span>
+                    <a href="@Url.Action("Logout", "Admin")" style="margin-left: 40px; text-decoration: none">Log out</a>
+                </span>
+
+            </div>
+        </div>
+    </div>
+    <!-- //banner -->
+    <!-- header -->
+    <header>
+        <nav class="navbar navbar-dark " style="background-color: #252525; margin-top:3px;">
+            <ul class="nav justify-content-center">
+
+                <li class="nav-item">
+                    <a class="nav-link ml-lg-0" href="@Url.Action("MemberManagement", "Admin")">Members</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("BookingDetails", "Admin")">Bookings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Create", "Admin")">Add Car</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Damage_Control_upload", "Admin")">Damage Control</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Reviews", "Admin")"><span>Reviews</span></a>
+                </li>
+
+            </ul>
+        </nav>
+    </header>
+    <!-- //header -->
+    <h4 style="margin-left: 610px">@DateTime.Now</h4>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <center>
+                                    <h3>Today's Car deliveries</h3>
+                                </center>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <center>
+
+                                </center>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <hr>
+                            </div>
+                        </div>
+                        @foreach (var item in records)
+                        {
+                            if (item.Start_date == "10/04/2021")
+                            {
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4>Starting Point : @item.Start_place</h4>
+                                <h5>Booking ID : @item.BookingID</h5>
+                                <h5>User ID : @item.UserID</h5>
+                                <h5>Car ID : @item.CarID</h5>
+                            </div>
+
+                            @foreach (var i in allcars)
+                                    {
+                                        if (item.CarID == i.CarID)
+                                        {
+                            <div class="col-md-6" style="float:right; ">
+                                <img src="@Url.Content(@i.CarImage)" class="rounded" style="width:270PX; height:130PX; " />
+                            </div>
+                                        }
+                                    }
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <hr>
+                            </div>
+                        </div>
+                            }
+                        }
+
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-5 ">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <center>
+                                    <h3>Today's Account Transection</h3>
+                                </center>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <center>
+
+                                </center>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <hr>
+                            </div>
+                        </div>
+                        @foreach (var item in records)
+                        {
+                            if (item.BookingDate == "04/10/2021" && item.BookingStatus == "Verified")
+                            {
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4>Amount : @item.TotalAmount taka</h4>
+                                <h5>Booking ID : @item.BookingID</h5>
+                                <h5>Transection ID : @item.TransectionID</h5>
+                                <h5>Car ID : @item.CarID</h5>
+                                <h5>Book For : @item.Start_date</h5>
+                            </div>
+
+                            @foreach (var i in allcars)
+                                    {
+                                        if (item.CarID == i.CarID)
+                                        {
+                            <div class="col-md-6" style="float:right; ">
+                                <img src="@Url.Content(@i.CarImage)" class="rounded" style="width:270PX; height:130PX; " />
+                            </div>
+                                        }
+                                    }
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <hr>
+                            </div>
+                        </div>
+
+                            }
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" style="height: 20px">
+
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12" style="background-color:black; padding: 6px; height:35px; margin-bottom: 4px">
+
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/jquery.validate-vsdoc.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

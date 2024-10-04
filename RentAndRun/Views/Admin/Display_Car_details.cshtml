@@ -1,0 +1,63 @@
+﻿@using PagedList.Mvc
+@model  PagedList.IPagedList<Letmedrive01.Models.Car_details>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>VIEW CARS</title>
+    <link href="~/Content/paginition.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container" style="height:1150px; ">
+        <div class="row">
+            <div class="col-12" style="background-color:bisque; padding: 6px; margin-bottom: 4px">
+                <center>
+                    <h2 style="font-family:Verdana; font-weight:bolder; ">Rent & Run</h2>
+                </center>
+            </div>
+        </div>
+
+        <div class="row" style="margin-bottom:40px">
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <div class="col-lg-4 col-md-4" style="height:200px;margin-top:100px">
+                        <img src="@Url.Content(item.CarImage)" style=" height:100%;width:100% ;border-radius:50px 50px 50px 50px" />
+                        @*<h4 style="color:#808080; font-family:'Arial Rounded MT';text-align:center">@item.CarImage</h4>*@
+                        <div style="margin-left:160px">
+                            @* @Html.ActionLink("Delete", "DeleteCar", new { id = item.CarID }, new { @class = "btn btn-danger btn-sm" })*@
+                            @* @Html.ActionLink("Delete", "Delete", new { id = item.CarID });*@
+                            @*@Html.ActionLink("Close this Ad", "DeleteCar", new { @class = "btn btn-info", id = @item.CarID })*@
+                            @Html.ActionLink("Delete", "DeleteCar", new { id = item.CarID }, new { @class = "btn btn-danger btn-sm" })
+                        </div>
+                    </div>
+
+                }
+            }
+
+        </div>
+
+
+    </div>
+
+    <div id="container" style="margin-left: 20px; margin-top: 50px">
+        <p></p>
+        <p></p>
+        <div class="pagination" style="margin-left: 400px">
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+            of @Model.PageCount   @Html.PagedListPager(Model, page => Url.Action("Display_Car_details", new { page }))
+        </div>
+    </div>
+    <br><br>
+</body>
+</html>
+

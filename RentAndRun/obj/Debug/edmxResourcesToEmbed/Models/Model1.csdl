@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="letdb01Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Booking">
+    <Key>
+      <PropertyRef Name="BookingID" />
+    </Key>
+    <Property Name="BookingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="CarID" Type="Int32" Nullable="false" />
+    <Property Name="Start_date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Start_time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="End_date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="End_time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Start_place" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="End_place" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TotalAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="BookingStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Car_details" Relationship="Self.FK__Bookings__CarID__182C9B23" FromRole="Bookings" ToRole="Car_details" />
+    <NavigationProperty Name="User" Relationship="Self.FK__Bookings__UserID__173876EA" FromRole="Bookings" ToRole="Users" />
+    <Property Name="TransectionID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BookingDate" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Car_details">
+    <Key>
+      <PropertyRef Name="CarID" />
+    </Key>
+    <Property Name="CarID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CarNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EngineNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="RegistrationYear" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CarDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CarImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Daily_Fee" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Bookings" Relationship="Self.FK__Bookings__CarID__182C9B23" FromRole="Car_details" ToRole="Bookings" />
+    <NavigationProperty Name="Damage_details" Relationship="Self.FK__Damage_de__CarID__1FCDBCEB" FromRole="Car_details" ToRole="Damage_details" />
+    <NavigationProperty Name="Reviews" Relationship="letdb01Model.FK__Reviews__CarID__37A5467C" FromRole="Car_details" ToRole="Review" />
+    <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Damage_details">
+    <Key>
+      <PropertyRef Name="DamageID" />
+    </Key>
+    <Property Name="DamageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CarID" Type="Int32" Nullable="false" />
+    <Property Name="CarImage_Front" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CarImage_Back" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CarImage_Right" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CarImage_Left" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Car_details" Relationship="Self.FK__Damage_de__CarID__1FCDBCEB" FromRole="Damage_details" ToRole="Car_details" />
+  </EntityType>
+  <EntityType Name="tbl_admin">
+    <Key>
+      <PropertyRef Name="ad_id" />
+    </Key>
+    <Property Name="ad_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ad_username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ad_password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UserContact_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UserPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UserNID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UserDrivingID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UserStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UserDateOfBirth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Bookings" Relationship="Self.FK__Bookings__UserID__173876EA" FromRole="Users" ToRole="Bookings" />
+    <NavigationProperty Name="Reviews" Relationship="letdb01Model.FK__Reviews__UserID__36B12243" FromRole="User" ToRole="Review" />
+  </EntityType>
+  <Association Name="FK__Bookings__CarID__182C9B23">
+    <End Role="Car_details" Type="Self.Car_details" Multiplicity="1" />
+    <End Role="Bookings" Type="Self.Booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Car_details">
+        <PropertyRef Name="CarID" />
+      </Principal>
+      <Dependent Role="Bookings">
+        <PropertyRef Name="CarID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Bookings__UserID__173876EA">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="Bookings" Type="Self.Booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Bookings">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Damage_de__CarID__1FCDBCEB">
+    <End Role="Car_details" Type="Self.Car_details" Multiplicity="1" />
+    <End Role="Damage_details" Type="Self.Damage_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Car_details">
+        <PropertyRef Name="CarID" />
+      </Principal>
+      <Dependent Role="Damage_details">
+        <PropertyRef Name="CarID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="letdb01Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Bookings" EntityType="Self.Booking" />
+    <EntitySet Name="Car_details" EntityType="Self.Car_details" />
+    <EntitySet Name="Damage_details" EntityType="Self.Damage_details" />
+    <EntitySet Name="tbl_admin" EntityType="Self.tbl_admin" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK__Bookings__CarID__182C9B23" Association="Self.FK__Bookings__CarID__182C9B23">
+      <End Role="Car_details" EntitySet="Car_details" />
+      <End Role="Bookings" EntitySet="Bookings" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Bookings__UserID__173876EA" Association="Self.FK__Bookings__UserID__173876EA">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Bookings" EntitySet="Bookings" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Damage_de__CarID__1FCDBCEB" Association="Self.FK__Damage_de__CarID__1FCDBCEB">
+      <End Role="Car_details" EntitySet="Car_details" />
+      <End Role="Damage_details" EntitySet="Damage_details" />
+    </AssociationSet>
+    <EntitySet Name="Reviews" EntityType="letdb01Model.Review" />
+    <AssociationSet Name="FK__Reviews__CarID__37A5467C" Association="letdb01Model.FK__Reviews__CarID__37A5467C">
+      <End Role="Car_details" EntitySet="Car_details" />
+      <End Role="Review" EntitySet="Reviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Reviews__UserID__36B12243" Association="letdb01Model.FK__Reviews__UserID__36B12243">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Review" EntitySet="Reviews" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Review">
+    <Key>
+      <PropertyRef Name="ReviewID" />
+    </Key>
+    <Property Name="ReviewID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="CarID" Type="Int32" Nullable="false" />
+    <Property Name="Validation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Car_details" Relationship="letdb01Model.FK__Reviews__CarID__37A5467C" FromRole="Review" ToRole="Car_details" />
+    <NavigationProperty Name="User" Relationship="letdb01Model.FK__Reviews__UserID__36B12243" FromRole="Review" ToRole="User" />
+  </EntityType>
+  <Association Name="FK__Reviews__CarID__37A5467C">
+    <End Type="letdb01Model.Car_details" Role="Car_details" Multiplicity="1" />
+    <End Type="letdb01Model.Review" Role="Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Car_details">
+        <PropertyRef Name="CarID" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="CarID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Reviews__UserID__36B12243">
+    <End Type="letdb01Model.User" Role="User" Multiplicity="1" />
+    <End Type="letdb01Model.Review" Role="Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

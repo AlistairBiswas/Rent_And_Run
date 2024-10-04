@@ -1,0 +1,175 @@
+﻿@model Rentandrun.Models.Review
+@{
+    ViewBag.Title = "Reviews";
+    Layout = null;
+    var records = ViewBag.all_review;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title-Rent & Run</title>
+
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/fontawesome-all.css" rel="stylesheet" />
+    <style>
+        .btn-dark {
+            margin-left: 10px;
+        }
+    </style>
+    <style>
+        #customers {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+            #customers td, #customers th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            #customers tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            #customers tr:hover {
+                background-color: #ddd;
+            }
+
+            #customers th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #04AA6D;
+                color: white;
+            }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12" style="background-color:bisque; padding: 6px; margin-bottom: 4px">
+                <center>
+                    <h2 style="font-family:Verdana; font-weight:bolder; ">Rent & Run</h2>
+                </center>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <center>
+                                    <h4>Reviews</h4>
+                                </center>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <center>
+                                    <img width="120px" src="~/images/support.png" />
+                                </center>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Booking ID</label>
+                                @using (Html.BeginForm("Reviews", "Admin", FormMethod.Post))
+                                {
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" placeholder="ID" name="ReviewID" value="@Html.DisplayFor(model => model.ReviewID)" id="recipient-rname" required="">
+                                        <input type="submit" class="btn btn-dark" value="Go">
+                                    </div>
+                                </div>
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                <label>User ID</label>
+                                <div class="form-group">
+                                    <input type="number" class="form-control" placeholder="" value="@Html.DisplayFor(model => model.UserID)" name="UserID" id="recipient-rname" required="" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <label>Review</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="" value="@Html.DisplayFor(model => model.Comment)" name="Comment" id="recipient-rname" required="" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        @using (Html.BeginForm("VerifyComment", "Admin", FormMethod.Post))
+                        {
+                        <div class="row">
+                            <div class="col-6" style="margin-left: 150px; margin-top: 25px">
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-success btn-block btn-lg" value="Verified">
+                                </div>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+                <a href="@Url.Action("Index", "Admin")" class="text-dark"><< Back to Home</a>
+                <br><br>
+            </div>
+            <div class="col-md-7">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <center>
+                                    <h2>Reviews List</h2>
+                                </center>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <hr>
+                            </div>
+                        </div>
+                        <table id="customers">
+                            <tr>
+                                <th>ID</th>
+                                <th>UserID</th>
+                                <th>Comment</th>
+                                <th>Validation</th>
+                            </tr>
+                            @foreach (var item in records)
+                            {
+                            <tr>
+                                <td>@item.ReviewID</td>
+                                <td>@item.UserID</td>
+                                <td>@item.Comment</td>
+                                <td>@item.Validation</td>
+                            </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12" style="background-color:black; padding: 6px; height:25px; margin-bottom: 4px">
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

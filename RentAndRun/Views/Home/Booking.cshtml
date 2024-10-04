@@ -1,0 +1,315 @@
+﻿@model Rentandrun.Models.Booking
+@{
+    ViewBag.Title = "Booking";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>@ViewBag.Title-Rent & Run</title>
+
+    <script type="application/x-javascript">
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <style>
+        .prog {
+            margin: 40px auto;
+        }
+
+            .prog ul li p {
+                font-family: sans-serif;
+                font-size: large;
+                font-weight: bold;
+            }
+
+            .prog img {
+                width: 80px;
+                margin-bottom: 20px;
+            }
+
+            .prog ul {
+                text-align: center;
+            }
+
+                .prog ul li {
+                    display: inline-block;
+                    width: 300px;
+                    position: relative;
+                }
+
+            .prog li .fa {
+                width: 35px;
+                height: 35px;
+                background-color: limegreen;
+                border-radius: 50%;
+                padding: 10px;
+                margin-bottom: 15px;
+            }
+
+            .prog li .fas {
+                width: 35px;
+                height: 35px;
+                background-color: limegreen;
+                border-radius: 50%;
+                padding: 10px;
+                margin-bottom: 15px;
+            }
+
+            .prog ul li .fa::after, .prog ul li .fas::after {
+                content: '';
+                background: darkturquoise;
+                height: 10px;
+                width: 310px;
+                display: block;
+                position: absolute;
+                left: 0;
+                top: 134px;
+                z-index: -1;
+            }
+
+            .prog ul li:first-child .fa::after {
+                width: 190px;
+                left: 140px;
+            }
+
+            .prog ul li:last-child .fa::after {
+                width: 160px;
+            }
+
+            .prog ul li:first-child .fa {
+                background-color: limegreen;
+            }
+    </style>
+
+    <link href="~/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/fontawesome-all.css" rel="stylesheet" />
+    <link href="~/css/jquery-ui.css" rel="stylesheet" />
+    <link href="~/css/owl.carousel.css" rel="stylesheet" />
+    <link href="~/css/owl.theme.css" rel="stylesheet" />
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/css/wickedpicker.css" rel="stylesheet" />
+    <a href="~/fonts/fontello.eot"></a>
+    <a href="~/fonts/fontello.ttf"></a>
+    <a href="~/fonts/fontello.woff"></a>
+    <script src="~/js/bootstrap.js"></script>
+    <script src="~/js/easing.js"></script>
+    <script src="~/js/jquery-2.1.4.min.js"></script>
+    <script src="~/js/jquery-ui.js"></script>
+    <script src="~/js/jquery.countup.js"></script>
+    <script src="~/js/jquery.waypoints.min.js"></script>
+    <script src="~/js/move-top.js"></script>
+    <script src="~/js/owl.carousel.js"></script>
+    <script src="~/js/responsiveslides.min.js"></script>
+    <script src="~/js/SmoothScroll.min.js"></script>
+    <script src="~/js/wickedpicker.js"></script>
+    <a href="~/webfonts/fa-brands-400.eot"></a>
+    <a href="~/webfonts/fa-brands-400.ttf"></a>
+    <a href="~/webfonts/fa-brands-400.woff"></a>
+    <a href="~/webfonts/fa-brands-400.woff2"></a>
+    <a href="~/webfonts/fa-regular-400.eot"></a>
+    <a href="~/webfonts/fa-regular-400.ttf"></a>
+    <a href="~/webfonts/fa-regular-400.woff"></a>
+    <a href="~/webfonts/fa-regular-400.woff2"></a>
+    <a href="~/webfonts/fa-solid-900.eot"></a>
+    <a href="~/webfonts/fa-solid-900.ttf"></a>
+    <a href="~/webfonts/fa-solid-900.woff"></a>
+    <a href="~/webfonts/fa-solid-900.woff2"></a>
+
+</head>
+<body>
+
+    <!-- Booking -->
+    <section class="bookingform py-5">
+        <div class="container py-md-5 py-3">
+            <h1 class="heading text-capitalize text-center">Booking form</h1>
+            <h5 class="heading mb-5 text-center">Rent & Run</h5>
+
+            <div class="prog">
+                <ul>
+                    <li>
+                        <img src="~/images/start.png"><br><br>
+                        <i class="fa fa-check"></i><br>
+                        <p>Starting Point</p>
+                    </li>
+                    <li>
+                        <img src="~/images/express.png"><br><br>
+                        <i class="fas fa-sync"></i><br>
+                        <p>Pickup Time</p>
+                    </li>
+                    <li>
+                        <img src="~/images/end-of-year.png"><br><br>
+                        <i class="fa fa-times"></i><br>
+                        <p>Dropoff Time</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body" style="background-color: #252525">
+                                @using (Html.BeginForm("Booking", "Home", FormMethod.Post))
+                                {
+                                <div class="row">
+                                    <div class="col">
+                                        <h2 style="font-family:'Lucida Console'; font-weight: bolder; font-size: 30px; color:azure">Tell Us Your Starting Point</h2>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 20px">
+                                    <div class="col-4">
+                                        <div class="agileits-btm-spc">
+                                            <select id="cab" onchange="change_country(this.value)" class="frm-field required sect">
+                                                <option value="">Enter Division</option>
+                                                <option value="">Dhaka</option>
+                                                <option value="">Chittagong</option>
+                                                <option value="">Rajshahi</option>
+                                                <option value="">Sylhet</option>
+                                                <option value="">Khulna</option>
+                                                <option value="">Barisal</option>
+                                                <option value="">Rangpur</option>
+                                                <option value="">Mymensingh</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-7">
+                                        <div class="agileits-btm-spc">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Enter your starting location" name="Start_place" id="Start_place" required="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <h2 style="font-family:sans-serif; font-size: 25px; color:azure">Popular Pickup Points</h2><br>
+                                        <p style="font-family: Georgia; color: #bdbfc3 ">Hazrat Shahjalal Internation Airport</p><br>
+                                        <p style="font-family: Georgia; color: #bdbfc3">Kamalapur Railway Station</p><br>
+                                        <p style="font-family: Georgia; color: #bdbfc3 ">Kallayanpur Bus Station</p><br>
+                                        <p style="font-family: Georgia; color: #bdbfc3 ">Shahbagh</p><br>
+                                        <p style="font-family: Georgia; color: #bdbfc3 ">Bashundhara R/A</p><br>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <h2 style="font-family:'Lucida Console'; font-weight: bolder; font-size: 30px; color:azure">Tell Us Your Ending Point</h2>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 20px">
+                                    <div class="col-4">
+                                        <div class="agileits-btm-spc">
+                                            <select id="cab" onchange="change_country(this.value)" class="frm-field required sect">
+                                                <option value="">Enter Division</option>
+                                                <option value="">Dhaka</option>
+                                                <option value="">Chittagong</option>
+                                                <option value="">Rajshahi</option>
+                                                <option value="">Sylhet</option>
+                                                <option value="">Khulna</option>
+                                                <option value="">Barisal</option>
+                                                <option value="">Rangpur</option>
+                                                <option value="">Mymensingh</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-7">
+                                        <div class="agileits-btm-spc">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Enter your drop-off location" name="End_place" id="End_place" required="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <h2 style="font-family:sans-serif; font-size: 25px; color:azure">Popular Dropoff Points</h2><br>
+                                        <p style="font-family: Georgia; color: #bdbfc3 ">Hazrat Shahjalal Internation Airport</p><br>
+                                        <p style="font-family: Georgia; color: #bdbfc3">Kamalapur Railway Station</p><br>
+                                        <p style="font-family: Georgia; color: #bdbfc3 ">Kallayanpur Bus Station</p><br>
+                                        <p style="font-family: Georgia; color: #bdbfc3 ">Shahbagh</p><br>
+                                        <p style="font-family: Georgia; color: #bdbfc3 ">Bashundhara R/A</p><br>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="margin-top: 20px">
+                                    <div class="col">
+                                        <h2 style="font-family:'Lucida Console'; font-weight: bolder; font-size: 30px; color:azure">From when you need a car ?</h2>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 20px">
+                                    <div class="col-12">
+                                        <div class="row main-agile-sectns">
+                                            <div class="col-md-6 agileits-btm-spc form-text1">
+                                                <div class="form-group">
+                                                    <input id="datepicker1" name="Start_date" type="text" placeholder="Pick-up Date" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 10px">
+                                    <div class="col-12">
+                                        <div class="row main-agile-sectns">
+                                            <div class="col-md-6 agileits-btm-spc form-text2">
+                                                <div class="form-group">
+                                                    <input type="text" id="timepicker" name="Start_time" class="timepicker form-control" placeholder="Pick-up Time" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 20px">
+                                    <div class="col">
+                                        <h2 style="font-family:'Lucida Console'; font-weight: bolder; font-size: 30px; color:azure">Till when you need it ?</h2>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 20px">
+                                    <div class="col-12">
+                                        <div class="row main-agile-sectns">
+                                            <div class="col-md-6 agileits-btm-spc form-text1">
+                                                <div class="form-group">
+                                                    <input id="datepicker2" name="End_date" type="text" placeholder="Drop-off Date" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 10px">
+                                    <div class="col-12">
+                                        <div class="row main-agile-sectns">
+                                            <div class="col-md-6 agileits-btm-spc form-text2">
+                                                <div class="form-group">
+                                                    <input type="text" id="timepicker" name="End_time" class="timepicker form-control" placeholder="Drop-off Time" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="submit" style="margin-left: 930px; padding: 10px 25px 10px 25px; background-color:#ffc107; font-family: 'Lucida Console'; font-weight: bolder; font-size: 20px;" value="Next">
+                                    </div>
+                                </div>
+                                }
+                            </div>
+                        </div>
+                        <br><br>
+                        <a href="@Url.Action("Index", "Admin")" class="text-dark"><< Back to Home</a>
+                        <br><br>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!-- //Booking -->
+
+</body>

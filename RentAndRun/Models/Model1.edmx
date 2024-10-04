@@ -1,0 +1,460 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="letdb01Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bookings">
+          <Key>
+            <PropertyRef Name="BookingID" />
+          </Key>
+          <Property Name="BookingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="CarID" Type="int" Nullable="false" />
+          <Property Name="Start_date" Type="nvarchar" MaxLength="50" />
+          <Property Name="Start_time" Type="nvarchar" MaxLength="50" />
+          <Property Name="End_date" Type="nvarchar" MaxLength="50" />
+          <Property Name="End_time" Type="nvarchar" MaxLength="50" />
+          <Property Name="Start_place" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="End_place" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="TotalAmount" Type="nvarchar" MaxLength="50" />
+          <Property Name="BookingStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="TransectionID" Type="varchar" MaxLength="50" />
+          <Property Name="BookingDate" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Car_details">
+          <Key>
+            <PropertyRef Name="CarID" />
+          </Key>
+          <Property Name="CarID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CarNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EngineNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RegistrationYear" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CarDetails" Type="nvarchar(max)" />
+          <Property Name="CarImage" Type="nvarchar(max)" />
+          <Property Name="Daily_Fee" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsAvailable" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Damage_details">
+          <Key>
+            <PropertyRef Name="DamageID" />
+          </Key>
+          <Property Name="DamageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CarID" Type="int" Nullable="false" />
+          <Property Name="CarImage_Front" Type="nvarchar(max)" />
+          <Property Name="CarImage_Back" Type="nvarchar(max)" />
+          <Property Name="CarImage_Right" Type="nvarchar(max)" />
+          <Property Name="CarImage_Left" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Reviews">
+          <Key>
+            <PropertyRef Name="ReviewID" />
+          </Key>
+          <Property Name="ReviewID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="CarID" Type="int" Nullable="false" />
+          <Property Name="Validation" Type="nvarchar" MaxLength="50" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="tbl_admin">
+          <Key>
+            <PropertyRef Name="ad_id" />
+          </Key>
+          <Property Name="ad_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ad_username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ad_password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserEmail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserAddress" Type="nvarchar(max)" />
+          <Property Name="UserContact_number" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserPhoto" Type="nvarchar(max)" />
+          <Property Name="UserNID" Type="nvarchar(max)" />
+          <Property Name="UserDrivingID" Type="nvarchar(max)" />
+          <Property Name="UserStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserDateOfBirth" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__Bookings__CarID__182C9B23">
+          <End Role="Car_details" Type="Self.Car_details" Multiplicity="1" />
+          <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car_details">
+              <PropertyRef Name="CarID" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="CarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bookings__UserID__173876EA">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Damage_de__CarID__1FCDBCEB">
+          <End Role="Car_details" Type="Self.Car_details" Multiplicity="1" />
+          <End Role="Damage_details" Type="Self.Damage_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car_details">
+              <PropertyRef Name="CarID" />
+            </Principal>
+            <Dependent Role="Damage_details">
+              <PropertyRef Name="CarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reviews__CarID__37A5467C">
+          <End Role="Car_details" Type="Self.Car_details" Multiplicity="1" />
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car_details">
+              <PropertyRef Name="CarID" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="CarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reviews__UserID__36B12243">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="letdb01ModelStoreContainer">
+          <EntitySet Name="Bookings" EntityType="Self.Bookings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Car_details" EntityType="Self.Car_details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Damage_details" EntityType="Self.Damage_details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reviews" EntityType="Self.Reviews" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_admin" EntityType="Self.tbl_admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Bookings__CarID__182C9B23" Association="Self.FK__Bookings__CarID__182C9B23">
+            <End Role="Car_details" EntitySet="Car_details" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bookings__UserID__173876EA" Association="Self.FK__Bookings__UserID__173876EA">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Damage_de__CarID__1FCDBCEB" Association="Self.FK__Damage_de__CarID__1FCDBCEB">
+            <End Role="Car_details" EntitySet="Car_details" />
+            <End Role="Damage_details" EntitySet="Damage_details" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reviews__CarID__37A5467C" Association="Self.FK__Reviews__CarID__37A5467C">
+            <End Role="Car_details" EntitySet="Car_details" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reviews__UserID__36B12243" Association="Self.FK__Reviews__UserID__36B12243">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="letdb01Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="BookingID" />
+          </Key>
+          <Property Name="BookingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="CarID" Type="Int32" Nullable="false" />
+          <Property Name="Start_date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Start_time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="End_date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="End_time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Start_place" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="End_place" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TotalAmount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BookingStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Car_details" Relationship="Self.FK__Bookings__CarID__182C9B23" FromRole="Bookings" ToRole="Car_details" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Bookings__UserID__173876EA" FromRole="Bookings" ToRole="Users" />
+          <Property Name="TransectionID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BookingDate" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Car_details">
+          <Key>
+            <PropertyRef Name="CarID" />
+          </Key>
+          <Property Name="CarID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CarNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EngineNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RegistrationYear" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CarDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CarImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Daily_Fee" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK__Bookings__CarID__182C9B23" FromRole="Car_details" ToRole="Bookings" />
+          <NavigationProperty Name="Damage_details" Relationship="Self.FK__Damage_de__CarID__1FCDBCEB" FromRole="Car_details" ToRole="Damage_details" />
+          <NavigationProperty Name="Reviews" Relationship="letdb01Model.FK__Reviews__CarID__37A5467C" FromRole="Car_details" ToRole="Review" />
+          <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Damage_details">
+          <Key>
+            <PropertyRef Name="DamageID" />
+          </Key>
+          <Property Name="DamageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CarID" Type="Int32" Nullable="false" />
+          <Property Name="CarImage_Front" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CarImage_Back" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CarImage_Right" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CarImage_Left" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Car_details" Relationship="Self.FK__Damage_de__CarID__1FCDBCEB" FromRole="Damage_details" ToRole="Car_details" />
+        </EntityType>
+        <EntityType Name="tbl_admin">
+          <Key>
+            <PropertyRef Name="ad_id" />
+          </Key>
+          <Property Name="ad_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ad_username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ad_password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserContact_number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserNID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserDrivingID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserDateOfBirth" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK__Bookings__UserID__173876EA" FromRole="Users" ToRole="Bookings" />
+          <NavigationProperty Name="Reviews" Relationship="letdb01Model.FK__Reviews__UserID__36B12243" FromRole="User" ToRole="Review" />
+        </EntityType>
+        <Association Name="FK__Bookings__CarID__182C9B23">
+          <End Role="Car_details" Type="Self.Car_details" Multiplicity="1" />
+          <End Role="Bookings" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car_details">
+              <PropertyRef Name="CarID" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="CarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bookings__UserID__173876EA">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Bookings" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Damage_de__CarID__1FCDBCEB">
+          <End Role="Car_details" Type="Self.Car_details" Multiplicity="1" />
+          <End Role="Damage_details" Type="Self.Damage_details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car_details">
+              <PropertyRef Name="CarID" />
+            </Principal>
+            <Dependent Role="Damage_details">
+              <PropertyRef Name="CarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="letdb01Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bookings" EntityType="Self.Booking" />
+          <EntitySet Name="Car_details" EntityType="Self.Car_details" />
+          <EntitySet Name="Damage_details" EntityType="Self.Damage_details" />
+          <EntitySet Name="tbl_admin" EntityType="Self.tbl_admin" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__Bookings__CarID__182C9B23" Association="Self.FK__Bookings__CarID__182C9B23">
+            <End Role="Car_details" EntitySet="Car_details" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bookings__UserID__173876EA" Association="Self.FK__Bookings__UserID__173876EA">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Damage_de__CarID__1FCDBCEB" Association="Self.FK__Damage_de__CarID__1FCDBCEB">
+            <End Role="Car_details" EntitySet="Car_details" />
+            <End Role="Damage_details" EntitySet="Damage_details" />
+          </AssociationSet>
+          <EntitySet Name="Reviews" EntityType="letdb01Model.Review" />
+          <AssociationSet Name="FK__Reviews__CarID__37A5467C" Association="letdb01Model.FK__Reviews__CarID__37A5467C">
+            <End Role="Car_details" EntitySet="Car_details" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reviews__UserID__36B12243" Association="letdb01Model.FK__Reviews__UserID__36B12243">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="ReviewID" />
+          </Key>
+          <Property Name="ReviewID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="CarID" Type="Int32" Nullable="false" />
+          <Property Name="Validation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Car_details" Relationship="letdb01Model.FK__Reviews__CarID__37A5467C" FromRole="Review" ToRole="Car_details" />
+          <NavigationProperty Name="User" Relationship="letdb01Model.FK__Reviews__UserID__36B12243" FromRole="Review" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__Reviews__CarID__37A5467C">
+          <End Type="letdb01Model.Car_details" Role="Car_details" Multiplicity="1" />
+          <End Type="letdb01Model.Review" Role="Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Car_details">
+              <PropertyRef Name="CarID" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="CarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reviews__UserID__36B12243">
+          <End Type="letdb01Model.User" Role="User" Multiplicity="1" />
+          <End Type="letdb01Model.Review" Role="Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="letdb01ModelStoreContainer" CdmEntityContainer="letdb01Entities">
+    <EntitySetMapping Name="Bookings">
+      <EntityTypeMapping TypeName="IsTypeOf(letdb01Model.Booking)">
+        <MappingFragment StoreEntitySet="Bookings">
+          <ScalarProperty Name="BookingID" ColumnName="BookingID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="CarID" ColumnName="CarID" />
+          <ScalarProperty Name="Start_date" ColumnName="Start_date" />
+          <ScalarProperty Name="Start_time" ColumnName="Start_time" />
+          <ScalarProperty Name="End_date" ColumnName="End_date" />
+          <ScalarProperty Name="End_time" ColumnName="End_time" />
+          <ScalarProperty Name="Start_place" ColumnName="Start_place" />
+          <ScalarProperty Name="End_place" ColumnName="End_place" />
+          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+          <ScalarProperty Name="BookingStatus" ColumnName="BookingStatus" />
+          <ScalarProperty Name="TransectionID" ColumnName="TransectionID" />
+          <ScalarProperty Name="BookingDate" ColumnName="BookingDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Car_details">
+      <EntityTypeMapping TypeName="IsTypeOf(letdb01Model.Car_details)">
+        <MappingFragment StoreEntitySet="Car_details">
+          <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
+                <ScalarProperty Name="CarID" ColumnName="CarID" />
+          <ScalarProperty Name="CarNumber" ColumnName="CarNumber" />
+          <ScalarProperty Name="EngineNumber" ColumnName="EngineNumber" />
+          <ScalarProperty Name="RegistrationYear" ColumnName="RegistrationYear" />
+          <ScalarProperty Name="CarDetails" ColumnName="CarDetails" />
+          <ScalarProperty Name="CarImage" ColumnName="CarImage" />
+          <ScalarProperty Name="Daily_Fee" ColumnName="Daily_Fee" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Damage_details">
+      <EntityTypeMapping TypeName="IsTypeOf(letdb01Model.Damage_details)">
+        <MappingFragment StoreEntitySet="Damage_details">
+          <ScalarProperty Name="DamageID" ColumnName="DamageID" />
+          <ScalarProperty Name="CarID" ColumnName="CarID" />
+          <ScalarProperty Name="CarImage_Front" ColumnName="CarImage_Front" />
+          <ScalarProperty Name="CarImage_Back" ColumnName="CarImage_Back" />
+          <ScalarProperty Name="CarImage_Right" ColumnName="CarImage_Right" />
+          <ScalarProperty Name="CarImage_Left" ColumnName="CarImage_Left" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_admin">
+      <EntityTypeMapping TypeName="IsTypeOf(letdb01Model.tbl_admin)">
+        <MappingFragment StoreEntitySet="tbl_admin">
+          <ScalarProperty Name="ad_id" ColumnName="ad_id" />
+          <ScalarProperty Name="ad_username" ColumnName="ad_username" />
+          <ScalarProperty Name="ad_password" ColumnName="ad_password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(letdb01Model.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+          <ScalarProperty Name="UserAddress" ColumnName="UserAddress" />
+          <ScalarProperty Name="UserContact_number" ColumnName="UserContact_number" />
+          <ScalarProperty Name="UserPhoto" ColumnName="UserPhoto" />
+          <ScalarProperty Name="UserNID" ColumnName="UserNID" />
+          <ScalarProperty Name="UserDrivingID" ColumnName="UserDrivingID" />
+          <ScalarProperty Name="UserStatus" ColumnName="UserStatus" />
+          <ScalarProperty Name="UserDateOfBirth" ColumnName="UserDateOfBirth" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reviews">
+      <EntityTypeMapping TypeName="IsTypeOf(letdb01Model.Review)">
+        <MappingFragment StoreEntitySet="Reviews">
+          <ScalarProperty Name="ReviewID" ColumnName="ReviewID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="CarID" ColumnName="CarID" />
+          <ScalarProperty Name="Validation" ColumnName="Validation" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="807efc7b1b804b67a9bccb389da7b6e9" Name="Diagram1">
+        <EntityTypeShape EntityType="letdb01Model.Booking" Width="1.5" PointX="2.5" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="letdb01Model.Car_details" Width="1.5" PointX="6.375" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="letdb01Model.Damage_details" Width="1.5" PointX="9" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="letdb01Model.tbl_admin" Width="1.5" PointX="8.875" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="letdb01Model.User" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <AssociationConnector Association="letdb01Model.FK__Bookings__CarID__182C9B23" ManuallyRouted="false" />
+        <AssociationConnector Association="letdb01Model.FK__Bookings__UserID__173876EA" ManuallyRouted="false" />
+        <AssociationConnector Association="letdb01Model.FK__Damage_de__CarID__1FCDBCEB" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="letdb01Model.Review" Width="1.5" PointX="4.25" PointY="0.5" />
+        <AssociationConnector Association="letdb01Model.FK__Reviews__CarID__37A5467C" />
+        <AssociationConnector Association="letdb01Model.FK__Reviews__UserID__36B12243" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
